@@ -3,9 +3,10 @@
     <head>
         <title>Homepage</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
     </head>
 <body>
-    {% import 'includes/navigation.html' as nav %}
+    {% import 'includes/nav.html' as nav %}
     {{ nav }}
 </body>
 </html>
