@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Projects</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='general.css') }}">
+    </head>
+<body>
+    {% import 'includes/nav.html' as nav %}
+    {{ nav }}
+
+    <div id="projects">
+        {% for project in projects %}
+        <div id="project">
+            <h2>
+                {{ project.title }}
+            </h2>
+            <p>
+                {{ project.description }}
+            </p>
+            <p><a>{{ project.link }}</a></p>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</body>
+</html>
+
