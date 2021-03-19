@@ -1,6 +1,8 @@
 #nav {
     list-style-type: none;
     overflow: hidden;
+    border-color: white;
+    border-style: double;
     /*float: right;*/
     /*text-align: right;*/
     /*background-color: #333;*/
