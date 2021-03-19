@@ -1,6 +1,11 @@
 from flask import Flask, render_template
+from database import db
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.db"
+db.app = app
+db.init_app(app)
+db.create_all()
 
 
 @app.route("/")
@@ -10,7 +15,7 @@ def index():
 
 @app.route("/projects")
 def projects():
-    return "projecys page"
+    return render_template("pages/projects.html")
 
 
 @app.route("/contact")
@@ -21,3 +26,8 @@ def contact():
 @app.route("/about/")
 def about():
     return "about page"
+
+
+@app.route("/addpost")
+def add_post():
+    return render_template("pages/add_post.html")
