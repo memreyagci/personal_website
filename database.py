@@ -1,17 +1,25 @@
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine, Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 
-db = SQLAlchemy()
+engine = create_engine("sqlite:///db.db", echo=True)
+
+Base = declarative_base()
+
+# db = SQLAlchemy()
 
 
-class project(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    description = db.Column(db.String)
-    links = db.Column(db.String)
+class Project(Base):
+    __tablename__ = "project"
+
+    name = Column(String, primary_key=True)
+    description = Column(String)
+    links = Column(String)
 
 
-class post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
-    content = db.Column(db.String)
-    date = db.Column(db.DateTime)
+class Post(Base):
+    __tablename__ = "post"
+
+    title = Column(String, primary_key=True)
+    content = Column(String)
+    date = Column(DateTime)
