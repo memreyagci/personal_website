@@ -8,9 +8,20 @@
 <body>
     {% import 'includes/nav.html' as nav %}
     {{ nav }}
-    <p>
-    Welcome to my personal website.
-    </p>
+    <div id=posts>
+        {% for post in posts %}
+        <a class=post_link href="{{ url_for('post', id=post.id) }}">
+            <div class=post>
+                <h2>
+                    {{ post.title }}
+                </h2>
+                <p>
+                    {{ post.content | truncate(350, end='...(Read more)') }}
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 </body>
 </html>
 

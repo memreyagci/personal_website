@@ -1,15 +1,18 @@
-from flask import Flask, render_template, request
-from database import Base, engine
+from flask import Flask, render_template, request, redirect, url_for
+from database import Base, engine, session, Post
 from datetime import datetime
 
 app = Flask(__name__)
+app.run(debug=True)
 
 Base.metadata.create_all(engine)
 
 
 @app.route("/")
 def index():
-    return render_template("pages/index.html")
+    posts = session.query(Post).all()
+
+    return render_template("pages/index.html", posts=posts)
 
 
 @app.route("/projects")
@@ -30,3 +33,22 @@ def about():
 @app.route("/addpost")
 def add_post():
     return render_template("pages/add_post.html")
+
+
+@app.route("/added", methods=["POST"])
+def added():
+    title = request.form["title"]
+    content = request.form["content"]
+
+    post = Post(title=title, content=content, date=datetime.now())
+    session.add(post)
+    session.commit()
+
+    return redirect(url_for("post", id=post.id))
+
+
+@app.route("/post/<int:id>")
+def post(id):
+    post = session.query(Post).filter(Post.id == id).one()
+
+    return render_template("pages/post.html", post=post)

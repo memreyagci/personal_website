@@ -1,18 +1,22 @@
-# from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine, Column, String, DateTime
+from sqlalchemy import create_engine, Column, String, DateTime, Integer
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("sqlite:///db.db", echo=True)
+engine = create_engine(
+    "sqlite:///db.db", echo=True, connect_args={"check_same_thread": False}
+)
 
 Base = declarative_base()
 
-# db = SQLAlchemy()
+Session = sessionmaker(bind=engine)
+session = Session()
 
 
 class Project(Base):
     __tablename__ = "project"
 
-    name = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String)
     description = Column(String)
     links = Column(String)
 
@@ -20,6 +24,7 @@ class Project(Base):
 class Post(Base):
     __tablename__ = "post"
 
-    title = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String)
     content = Column(String)
     date = Column(DateTime)
