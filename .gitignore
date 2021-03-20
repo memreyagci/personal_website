@@ -1,6 +1,3 @@
-*
-
-!.gitignore
-!*.py
-!.css
-!.html
+__pycache__/
+venv/
+*.db
