@@ -10,9 +10,14 @@ Base.metadata.create_all(engine)
 
 @app.route("/")
 def index():
+    return render_template("pages/index.html")
+
+
+@app.route("/blog")
+def blog():
     posts = session.query(Post).all()
 
-    return render_template("pages/index.html", posts=posts)
+    return render_template("pages/blog.html", posts=posts)
 
 
 @app.route("/projects")
