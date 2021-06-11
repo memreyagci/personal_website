@@ -44,15 +44,19 @@ def add_post():
 def added():
     title = request.form["title"]
     content = request.form["content"]
+    date = request.form["date"]
+    
+    if date == "":
+        date=datetime.now()
 
-    post = Post(title=title, content=content, date=datetime.now())
+    post = Post(title=title, content=content, date=date)
     session.add(post)
     session.commit()
 
-    return redirect(url_for("post", id=post.id))
+    return redirect(url_for("blog", id=post.id))
 
 
-@app.route("/post/<int:id>")
+@app.route("/blog/<int:id>")
 def post(id):
     post = session.query(Post).filter(Post.id == id).one()
 
