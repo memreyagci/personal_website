@@ -28,3 +28,8 @@ class Post(Base):
     title = Column(String)
     content = Column(String)
     date = Column(DateTime)
+
+class Key(Base):
+    __tablename__ = "key"
+
+    id = Column(String, primary_key=True)

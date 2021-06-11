@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-from database import Base, engine, session, Post
+from database import Base, engine, session, Post, Key
 from datetime import datetime
+
+import hashlib
 
 app = Flask(__name__)
 app.run(debug=True)
@@ -42,6 +44,12 @@ def add_post():
 
 @app.route("/added", methods=["POST"])
 def added():
+    key_submitted = hashlib.sha256(request.form["key"].encode()).hexdigest()
+    key = session.query(Key).one().id
+
+    if key_submitted != key:
+        return False
+
     title = request.form["title"]
     content = request.form["content"]
     date = request.form["date"]
