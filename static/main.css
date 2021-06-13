@@ -6,22 +6,28 @@ p, h1, h2 {
     color: white;
 }
 
-.post_preview {
+/* .post_link, .post_link:visited, .panel_option { */
+a {
+    text-decoration: none;
+}
+
+.post_preview, .panel_option {
     border-color:white;
     border-style: double;
     padding: 0px 20px;
     margin: 2% 20%;
 }
 
-.post_preview:hover{
+.post_preview:hover, .panel_option:hover{
     border-color: green;
 }
 
-.post_link, .post_link:visited {
-    text-decoration: none;
-}
-
-.post {
+.post, .intro, .panel_option {
     padding: 15px;
     margin: 0% 20%;
+}
+
+.panel_option {
+    display: block;
+    text_align: center;
 }

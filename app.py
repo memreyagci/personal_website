@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
-from database import Base, engine, session, Post, Key
+from database import Base, engine, session, Post, Key, Key
 from datetime import datetime
 
 import hashlib
 
 app = Flask(__name__)
-app.run(debug=True)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.run(debug=True, TEMPLATES_AUTO_RELOAD=True)
 
 Base.metadata.create_all(engine)
 
@@ -13,6 +14,11 @@ Base.metadata.create_all(engine)
 @app.route("/")
 def index():
     return render_template("pages/index.html")
+
+
+@app.route("/admin")
+def admin():
+    return render_template("pages/admin.html")
 
 
 @app.route("/blog")
@@ -48,7 +54,7 @@ def added():
     key = session.query(Key).one().id
 
     if key_submitted != key:
-        return False
+        return "Authentication failed."
 
     title = request.form["title"]
     content = request.form["content"]
